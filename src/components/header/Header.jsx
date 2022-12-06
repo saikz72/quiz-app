@@ -21,7 +21,7 @@ function Header({
               defaultValue="9"
               onChange={handleChange}
               disabled={loadingCategories || quizInProgress}>
-              {categories.map((category) => (
+              {categories?.map((category) => (
                 <option value={category.id} key={category.id}>
                   {category.name}
                 </option>

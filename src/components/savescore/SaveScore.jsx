@@ -1,5 +1,8 @@
+import { doc, query, setDoc, where } from 'firebase/firestore';
 import { Fragment, useState } from 'react';
+import { useAuth } from '../../context-api/AuthContext';
 import { createPlayer } from '../../utils/fauna.helpers';
+import { db } from '../../utils/firebase';
 
 function SaveScore({ category, score, setError, resetGame }) {
   const [playerName, setPlayerName] = useState('');
@@ -9,12 +12,12 @@ function SaveScore({ category, score, setError, resetGame }) {
 
     if (!playerName || !category || !score) return;
 
-    try {
-      await createPlayer({ category, name: playerName.trim(), score });
-    } catch (error) {
-      console.log(error);
-      setError('🙁 Error saving player score.');
-    }
+    // try {
+    //   await createPlayer({ category, name: playerName.trim(), score });
+    // } catch (error) {
+    //   console.log(error);
+    //   setError('🙁 Error saving player score.');
+    // }
 
     resetGame();
   };

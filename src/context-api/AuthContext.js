@@ -31,15 +31,12 @@ export function AuthProvider({ children }) {
 
   // signup function
   async function signup(username, email, password) {
-    try {
-      const docRef = await addDoc(collection(db, 'user'), {
-        username,
-        email,
-        password
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    const docRef = await addDoc(collection(db, 'user'), {
+      username,
+      email,
+      password
+    });
+
     const auth = getAuth();
     await createUserWithEmailAndPassword(auth, email, password);
 

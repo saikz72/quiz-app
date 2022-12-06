@@ -2,11 +2,12 @@ import { useAuth } from '../../../context-api/AuthContext';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Header from '../../header/Header';
-import Progress from '../../header/Header';
+import Progress from '../../progress/Progress';
 import Score from '../../score/Score';
 import Question from '../../question/Question';
 import Leaderboard from '../../leaderBoard/Leaderboard';
 import SaveScore from '../../savescore/SaveScore';
+import { saveScore } from '../../../utils/fauna.helpers';
 
 const decodeString = (string) => {
   const text = document.createElement('textarea');
@@ -188,7 +189,6 @@ export default function HomePage() {
         quizInProgress={quizInProgress}
         defaultNumOfQuestions={apiOptions.amount}
       />
-
       <div className="container">
         {error && <div className="error-message">{error}</div>}
 
