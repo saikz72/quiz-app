@@ -6,7 +6,7 @@ import Style from './Navbar.module.css';
 
 export default function Navbar() {
   return (
-    <nav className={Style.nav}>
+    <nav className={Style.nav} style={{ backgroundColor: '#99DDFE' }}>
       <ul>
         <li>
           <Link to="/" className={Style.brand}>

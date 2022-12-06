@@ -16,8 +16,12 @@ export default function Account() {
         </>
       ) : (
         <>
-          <Link to="/singup">Signup</Link>
-          <Link to="/login">Login</Link>
+          <Link to="/singup">
+            <h2>Signup</h2>
+          </Link>
+          <Link to="/login">
+            <h2>Login</h2>
+          </Link>
         </>
       )}
     </div>

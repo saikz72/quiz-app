@@ -379,3 +379,14 @@ header > form {
 .leaderboard-group > ul > li:last-child {
 	margin-bottom: 0;
 }
+
+.custom{
+	display: flex;
+	justify-content: center;
+}
+
+.custom__play{
+	/* align-self: center; */
+	margin-top: 40px;
+	text-align: center;
+}

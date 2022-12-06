@@ -173,7 +173,18 @@ export default function HomePage() {
   }, [error]);
 
   if (!currentUser) {
-    return <p>NOT LOGGED IN</p>;
+    return (
+      <div className="custom">
+        <div className="custom__welcome">
+          <h1>Welcome to Quiz App!</h1>
+          <h2 className="custom__play">
+            To play the game and get a chance to top the leader board, please sign up or login to
+            your exsiting account
+          </h2>
+        </div>
+        <Leaderboard setError={setError} />
+      </div>
+    );
   }
 
   return (
