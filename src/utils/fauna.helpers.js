@@ -30,13 +30,14 @@ export const getPlayers = async () => {
   return players;
 };
 
-export const saveScore = async (score) => {
+export const updateScore = async (score) => {
   const { currentUser, docId } = useAuth();
   const userRef = collection(db, 'user');
   const q = query(userRef, where('email', '==', currentUser.email));
   const querySnapShot = await getDocs(q);
 
   for (const doc of querySnapShot.docs) {
+    console.log(doc);
     await setDoc(doc, { score });
   }
 };

@@ -7,7 +7,6 @@ import Score from '../../score/Score';
 import Question from '../../question/Question';
 import Leaderboard from '../../leaderBoard/Leaderboard';
 import SaveScore from '../../savescore/SaveScore';
-import { saveScore } from '../../../utils/fauna.helpers';
 
 const decodeString = (string) => {
   const text = document.createElement('textarea');
@@ -190,11 +189,11 @@ export default function HomePage() {
         defaultNumOfQuestions={apiOptions.amount}
       />
       <div className="container">
-        {error && <div className="error-message">{error}</div>}
+        {error ? <div className="error-message">{error}</div> : null}
 
-        {!quizInProgress && !totalQuestions && <Leaderboard setError={setError} />}
+        {!quizInProgress && !totalQuestions ? <Leaderboard setError={setError} /> : null}
 
-        {currentQuestion && (
+        {currentQuestion ? (
           <Fragment>
             <div className="flex-between">
               <Progress
@@ -214,16 +213,16 @@ export default function HomePage() {
               withTimer={withTimer}
             />
           </Fragment>
-        )}
+        ) : null}
 
-        {gameEnded && (
+        {gameEnded ? (
           <SaveScore
             category={currentCategory}
             score={score}
             setError={setError}
             resetGame={resetGame}
           />
-        )}
+        ) : null}
       </div>
     </Fragment>
   );
