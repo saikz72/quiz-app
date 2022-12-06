@@ -3,7 +3,8 @@ import { getPlayers } from '../../utils/fauna.helpers';
 
 const mergeSortArray = (arr) => {
   const mergedEntriesIntoObject = arr.reduce((acc, val) => {
-    const key = val.name.toLowerCase();
+    const key = val.username.toLowerCase();
+
     if (key in acc) {
       acc[key] = { ...acc[key], score: acc[key].score + val.score };
     } else {
@@ -70,7 +71,7 @@ function Leaderboard({ setError }) {
         <div className="leaderboard-group gold">
           <h3>Overall Top Scorer</h3>
           <span>
-            🥇 {topScorer.name} - {topScorer.score}
+            🥇 {topScorer.username} - {topScorer.score}
           </span>
         </div>
       )}
@@ -78,14 +79,15 @@ function Leaderboard({ setError }) {
       {leaderboard &&
         leaderboard.map(({ category, scores }) => (
           <div key={category} className="leaderboard-group">
-            <h3>{category}</h3>
+            {/* <h3>{category}</h3> */}
+            <h3>Leader Board</h3>
             <ul>
               {scores.map((player, idx) => (
-                <li key={player.id}>
+                <li key={player.email}>
                   {idx === 0 && '🥇 '}
                   {idx === 1 && '🥈 '}
                   {idx === 2 && '🥉 '}
-                  {player.name} - {player.score}
+                  {player.username} - {player.score}
                 </li>
               ))}
             </ul>

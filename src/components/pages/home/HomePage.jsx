@@ -2,7 +2,7 @@ import { useAuth } from '../../../context-api/AuthContext';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Header from '../../header/Header';
-import Progress from '../../header/Header';
+import Progress from '../../progress/Progress';
 import Score from '../../score/Score';
 import Question from '../../question/Question';
 import Leaderboard from '../../leaderBoard/Leaderboard';
@@ -188,13 +188,12 @@ export default function HomePage() {
         quizInProgress={quizInProgress}
         defaultNumOfQuestions={apiOptions.amount}
       />
-
       <div className="container">
-        {error && <div className="error-message">{error}</div>}
+        {error ? <div className="error-message">{error}</div> : null}
 
-        {!quizInProgress && !totalQuestions && <Leaderboard setError={setError} />}
+        {!quizInProgress && !totalQuestions ? <Leaderboard setError={setError} /> : null}
 
-        {currentQuestion && (
+        {currentQuestion ? (
           <Fragment>
             <div className="flex-between">
               <Progress
@@ -214,16 +213,16 @@ export default function HomePage() {
               withTimer={withTimer}
             />
           </Fragment>
-        )}
+        ) : null}
 
-        {gameEnded && (
+        {gameEnded ? (
           <SaveScore
             category={currentCategory}
             score={score}
             setError={setError}
             resetGame={resetGame}
           />
-        )}
+        ) : null}
       </div>
     </Fragment>
   );

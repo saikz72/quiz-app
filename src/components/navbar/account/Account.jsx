@@ -9,15 +9,9 @@ export default function Account() {
     <div className={Style.account}>
       {currentUser ? (
         <>
-          <Link to="/profile">
-            <span className="material-icons-outlined" title="Account">
-              account_circle
-            </span>
-          </Link>
           <span>{currentUser.displayName}</span>
           <span className="material-icons-outlined" title="Logout" onClick={logout}>
-            {' '}
-            logout{' '}
+            logout
           </span>
         </>
       ) : (

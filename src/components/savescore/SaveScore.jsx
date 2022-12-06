@@ -1,18 +1,28 @@
 import { Fragment, useState } from 'react';
-import { createPlayer } from '../../utils/fauna.helpers';
+import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import { db } from '../../utils/firebase';
+import { useAuth } from '../../context-api/AuthContext';
 
 function SaveScore({ category, score, setError, resetGame }) {
   const [playerName, setPlayerName] = useState('');
+  const { currentUser, docId } = useAuth();
 
   const saveScore = async (e) => {
     e.preventDefault();
 
-    if (!playerName || !category || !score) return;
+    // if (!playerName || !category || !score) return;
+    if (!score) return;
 
     try {
-      await createPlayer({ category, name: playerName.trim(), score });
-    } catch (error) {
-      console.log(error);
+      const userRef = collection(db, 'user');
+      const q = query(userRef, where('email', '==', currentUser.email));
+      const querySnapShot = await getDocs(q);
+
+      for (const docRef of querySnapShot.docs) {
+        await setDoc(doc(db, 'user', docRef.id), { score }, { merge: true });
+      }
+    } catch (e) {
+      console.log(e);
       setError('🙁 Error saving player score.');
     }
 
@@ -23,7 +33,7 @@ function SaveScore({ category, score, setError, resetGame }) {
     <form className="score-form" onSubmit={saveScore}>
       {score ? (
         <Fragment>
-          <h3>You got a score! 🙌</h3>
+          {/* <h3>You got a score! 🙌</h3>
           <p>Enter your name below to save your score.</p>
           <input
             type="text"
@@ -35,7 +45,12 @@ function SaveScore({ category, score, setError, resetGame }) {
           <button className="btn" type="submit">
             Save
           </button>
-          <span>or</span>
+          <span>or</span> */}
+          <h3>You got a score! 🙌</h3>
+          <p>Click save to update your score in the leaderboard</p>
+          <button className="btn" type="submit">
+            Save
+          </button>
         </Fragment>
       ) : (
         <h3>You didn&apos;t get a score! 😥</h3>
