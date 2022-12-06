@@ -19,6 +19,7 @@ const mergeSortArray = (arr) => {
 };
 
 const groupMergeSortArray = (array) => {
+  array = array.filter((item) => item.score !== undefined);
   const group = array.reduce((acc, val) => {
     const key = val.category;
     if (key in acc) {
