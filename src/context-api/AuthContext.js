@@ -6,8 +6,10 @@ import {
   signOut,
   updateProfile
 } from 'firebase/auth';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react';
 import '../utils/firebase';
+import { db } from '../utils/firebase';
 
 const AuthContext = React.createContext();
 
@@ -29,6 +31,15 @@ export function AuthProvider({ children }) {
 
   // signup function
   async function signup(username, email, password) {
+    try {
+      const docRef = await addDoc(collection(db, 'user'), {
+        username,
+        email,
+        password
+      });
+    } catch (e) {
+      console.log(e);
+    }
     const auth = getAuth();
     await createUserWithEmailAndPassword(auth, email, password);
 
@@ -44,9 +55,8 @@ export function AuthProvider({ children }) {
   }
 
   // login function
-  function login(email, password) {
+  async function login(email, password) {
     const auth = getAuth();
-
     return signInWithEmailAndPassword(auth, email, password);
   }
 
