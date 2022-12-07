@@ -32,6 +32,12 @@ export function AuthProvider({ children }) {
   // signup function
   async function signup(username, email, password) {
     const auth = getAuth();
+    const d = await addDoc(collection(db, 'user'), {
+      username,
+      email,
+      password
+    });
+    console.log('ddd', d.id);
     await createUserWithEmailAndPassword(auth, email, password);
 
     // update profile
@@ -42,12 +48,6 @@ export function AuthProvider({ children }) {
     const user = auth.currentUser;
     setCurrentUser({
       ...user
-    });
-
-    const docRef = await addDoc(collection(db, 'user'), {
-      username,
-      email,
-      password
     });
   }
 

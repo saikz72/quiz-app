@@ -1,6 +1,6 @@
+import axios from 'axios';
 import { useAuth } from '../../../context-api/AuthContext';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import Header from '../../header/Header';
 import Progress from '../../progress/Progress';
 import Score from '../../score/Score';
